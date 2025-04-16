@@ -446,7 +446,7 @@ This project wouldn't be possible without these amazing open-source projects:
 
 <div align="center">
 
-### Made with ❤️ by [Darshan Bajgain](https://github.com/darshanbajgain)
+### Made  by [Darshan Bajgain](https://github.com/darshanbajgain)
 
 If you find this project helpful, please consider giving it a star ⭐
 
