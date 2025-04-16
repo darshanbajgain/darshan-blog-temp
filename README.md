@@ -62,8 +62,8 @@ This Next.js blog template provides a complete solution for developers and conte
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/yourusername/nextjs-blog-template.git
-   cd nextjs-blog-template
+   https://github.com/darshanbajgain/darshan-blog-temp.git
+   cd darshan-blog-temp
    ```
 
 2. Install dependencies:
