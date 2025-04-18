@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
+    const [mounted, setMounted] = useState(false)
     const { setTheme, resolvedTheme } = useTheme()
 
     // Add effect to handle body scroll
@@ -33,6 +34,11 @@ export default function Navbar() {
 
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
+    }, [])
+
+    // Handle mounting to prevent hydration mismatch with theme
+    useEffect(() => {
+        setMounted(true)
     }, [])
 
     return (
@@ -88,16 +94,18 @@ export default function Navbar() {
                         </Button>
                     </div>
 
-                    {/* Theme Toggle */}
-                    <Button
-                        variant="ghost"
-                        className="text-buttons hover:text-buttons hover:bg-buttons/5"
-                        size="icon"
-                        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                        aria-label="Toggle theme"
-                    >
-                        {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                    </Button>
+                    {/* Theme Toggle - Only show when mounted to prevent hydration mismatch */}
+                    {mounted && (
+                        <Button
+                            variant="ghost"
+                            className="text-buttons hover:text-buttons hover:bg-buttons/5"
+                            size="icon"
+                            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                            aria-label="Toggle theme"
+                        >
+                            {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                        </Button>
+                    )}
 
                     {/* Mobile Menu Button */}
                     <Button

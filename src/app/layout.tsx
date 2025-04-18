@@ -6,7 +6,6 @@ import "./prism.css"
 import { ThemeProvider } from "@/theme/theme-provider"
 import Navbar from "@/components/main/Navbar"
 import Footer from "@/components/main/Footer"
-// Theme script is now inline in the head
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,29 +28,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
-      <head>
-        <meta name="color-scheme" content="dark" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                // Apply dark mode immediately to prevent flash
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-backgroundPrimary`}>
-        <ThemeProvider>
+    <ThemeProvider>
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <meta name="color-scheme" content="light dark" />
+        </head>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-backgroundPrimary`}>
           <Navbar />
           <main className="flex-grow pt-20">{children}</main>
           <Footer />
-        </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ThemeProvider>
+
   )
 }
 
