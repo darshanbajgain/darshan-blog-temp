@@ -2,16 +2,14 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { Menu, X, Github, Twitter, Linkedin, Moon, Sun, GithubIcon, TwitterIcon, LinkedinIcon } from "lucide-react"
+import { Menu, X, Github, Twitter, Linkedin, GithubIcon, TwitterIcon, LinkedinIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "next-themes"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { ThemeToggle } from "@/components/ThemeToggle"
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
-    const [mounted, setMounted] = useState(false)
-    const { setTheme, resolvedTheme } = useTheme()
 
     // Add effect to handle body scroll
     useEffect(() => {
@@ -36,10 +34,7 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-    // Handle mounting to prevent hydration mismatch with theme
-    useEffect(() => {
-        setMounted(true)
-    }, [])
+
 
     return (
         <header
@@ -94,18 +89,8 @@ export default function Navbar() {
                         </Button>
                     </div>
 
-                    {/* Theme Toggle - Only show when mounted to prevent hydration mismatch */}
-                    {mounted && (
-                        <Button
-                            variant="ghost"
-                            className="text-buttons hover:text-buttons hover:bg-buttons/5"
-                            size="icon"
-                            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                            aria-label="Toggle theme"
-                        >
-                            {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                        </Button>
-                    )}
+                    {/* Theme Toggle */}
+                    <ThemeToggle />
 
                     {/* Mobile Menu Button */}
                     <Button

@@ -28,18 +28,29 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ThemeProvider>
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <meta name="color-scheme" content="light dark" />
-        </head>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-backgroundPrimary`}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="color-scheme" content="light dark" />
+        {/* Simple script to prevent flash of wrong theme */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme');
+                if (theme === 'dark') document.documentElement.classList.add('dark');
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-backgroundPrimary`}>
+        <ThemeProvider>
           <Navbar />
           <main className="flex-grow pt-20">{children}</main>
           <Footer />
-        </body>
-      </html>
-    </ThemeProvider>
+        </ThemeProvider>
+      </body>
+    </html>
 
   )
 }
