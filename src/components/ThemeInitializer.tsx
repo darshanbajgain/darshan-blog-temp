@@ -23,7 +23,7 @@ export function ThemeInitializer() {
           localStorage.setItem('theme', 'light')
         }
       }
-    } catch (e) {
+    } catch  {
       // Fallback if localStorage is not available
       setTheme('light')
     }
