@@ -21,7 +21,7 @@ export default function Pagination({ totalPages }: PaginationProps) {
                 size="sm"
                 onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
                 disabled={currentPage === 1}
-                className="h-9 px-4 text-white bg-buttons hover:text-buttons hover:bg-buttons/5 border border-borderColor"
+                className="h-9 px-4 text-textPrimary bg-buttons hover:text-buttons hover:bg-buttons/5 border border-borderColor"
 
             >
                 Previous
@@ -34,7 +34,7 @@ export default function Pagination({ totalPages }: PaginationProps) {
                         variant={currentPage === page ? "default" : "outline"}
                         size="sm"
                         onClick={() => setCurrentPage(page)}
-                        className={`h-9 w-9 p-0 text-white  bg-buttons hover:text-buttons hover:bg-buttons/5 border border-borderColor ${currentPage === page ? "pointer-events-none bg-textSecondary text-buttons" : ""}`}
+                        className={`h-9 w-9 p-0 text-textPrimary  bg-buttons hover:text-buttons hover:bg-buttons/5 border border-borderColor ${currentPage === page ? "pointer-events-none bg-textSecondary text-buttons" : ""}`}
                     >
                         {page}
                     </Button>
@@ -46,7 +46,7 @@ export default function Pagination({ totalPages }: PaginationProps) {
                 size="sm"
                 onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="h-9 px-4 text-white bg-buttons hover:text-buttons hover:bg-buttons/5 border border-borderColor"
+                className="h-9 px-4 text-textPrimary bg-buttons hover:text-buttons hover:bg-buttons/5 border border-borderColor"
             >
                 Next
             </Button>
