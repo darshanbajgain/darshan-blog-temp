@@ -1,0 +1,55 @@
+/* Import highlight.js theme */
+@import 'highlight.js/styles/github-dark.css';
+
+/* Additional styling for code blocks */
+.hljs {
+  background: #0d1117;
+  color: #e6edf3;
+  padding: 1em;
+  border-radius: 0.5rem;
+}
+
+/* Language-specific colors */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-addition {
+  color: #ff79c6;
+}
+
+.hljs-string,
+.hljs-attribute,
+.hljs-symbol {
+  color: #50fa7b;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #bd93f9;
+}
+
+.hljs-type,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #8be9fd;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion {
+  color: #6272a4;
+  font-style: italic;
+}
+
+.hljs-literal,
+.hljs-number {
+  color: #bd93f9;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}

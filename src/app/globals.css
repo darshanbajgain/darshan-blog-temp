@@ -350,3 +350,67 @@ html.dark {
   animation: fadeInUp 0.5s ease-out forwards;
   will-change: opacity, transform;
 }
+
+/* Theme provider hidden content */
+.theme-content-hidden {
+  visibility: hidden;
+}
+
+/* Custom styling for post content */
+.post-content {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Custom bullet points */
+.prose ul:not(.contains-task-list) {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.prose ul:not(.contains-task-list) li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul:not(.contains-task-list) li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--buttons);
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.prose ul:not(.contains-task-list) li:hover::before {
+  transform: translateX(3px);
+  color: var(--buttons);
+  opacity: 0.8;
+}
+
+/* Feature list styling */
+.prose ul.feature-list {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.prose ul.feature-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose ul.feature-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981; /* Emerald-500 */
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
+}
+
+.prose ul.feature-list li:hover::before {
+  transform: scale(1.2);
+}

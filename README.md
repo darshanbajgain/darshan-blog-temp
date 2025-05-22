@@ -35,7 +35,8 @@ This Next.js blog template provides a complete solution for developers and conte
 
 ### 📝 Content Features
 - **Markdown Support**: Write blog posts in Markdown with frontmatter
-- **Code Syntax Highlighting**: Beautiful code blocks with language detection
+- **Enhanced Code Blocks**: Beautiful syntax highlighting with copy-to-clipboard functionality
+- **Custom Bullet Points**: Stylish bullet points with hover effects and special feature lists
 - **Table Support**: Responsive tables that work on all screen sizes
 - **Image Optimization**: Automatic image optimization with Next.js Image
 - **Categories/Tags**: Organize content with a powerful categorization system
@@ -158,7 +159,7 @@ The blog post rendering pipeline works as follows:
 
 1. **File Discovery**: The system scans the `src/posts` directory for `.md` files
 2. **Frontmatter Parsing**: Using `gray-matter`, the frontmatter metadata is extracted
-3. **Markdown Conversion**: The `marked` library converts Markdown content to HTML
+3. **Markdown Conversion**: The `remark` ecosystem converts Markdown content to HTML
 4. **HTML Rendering**: The HTML is rendered with proper styling via Tailwind's Typography plugin
 5. **SEO Optimization**: Metadata is used to generate SEO tags and structured data
 
@@ -234,7 +235,7 @@ All UI components are located in the `src/components` directory and can be modif
 - **`src/lib/post.ts`**: Core file that handles blog post processing, including:
   - Reading Markdown files from the `src/posts` directory
   - Parsing frontmatter with `gray-matter`
-  - Converting Markdown to HTML with `marked`
+  - Converting Markdown to HTML with `remark` and `remark-html`
   - Sorting posts by date
   - Extracting metadata for SEO
 
@@ -255,37 +256,74 @@ The blog post rendering system is a core feature of this template, providing a s
 
 1. **File Discovery**: The system scans the `src/posts` directory for Markdown (`.md`) files
 2. **Metadata Extraction**: Using `gray-matter`, the frontmatter metadata is parsed from each file
-3. **Content Processing**: The Markdown content is converted to HTML using the `marked` library
-4. **Syntax Highlighting**: Code blocks are enhanced with syntax highlighting
-5. **Responsive Tables**: Tables are processed to ensure they display correctly on all devices
-6. **Reading Time Calculation**: Estimated reading time is calculated based on word count
+3. **Markdown Processing**: The content is processed through a unified pipeline:
+   - `remarkParse`: Parses markdown content into an AST
+   - `remarkGfm`: Adds GitHub Flavored Markdown support (tables, autolinks, etc.)
+   - `remarkRehype`: Converts markdown AST to HTML AST
+   - `rehypeHighlight`: Applies syntax highlighting to code blocks
+   - `rehypeStringify`: Converts HTML AST to HTML string
+4. **Client-Side Enhancement**: The `MarkdownContent` component enhances the rendered HTML:
+   - Adds language indicators to code blocks (positioned at top-left)
+   - Adds copy-to-clipboard buttons to code blocks (positioned at top-right)
+   - Applies special styling to feature lists that follow headings
+5. **Reading Time Calculation**: Estimated reading time is calculated based on word count
 
 #### Key Components
 
 - **`src/lib/post.ts`**: Contains the core functions for processing blog posts:
 
   ```typescript
-  // Main functions for blog post handling
-  export function getAllPosts(): Post[] { ... }  // Gets all blog posts sorted by date
-  export function getPostBySlug(slug: string): Post { ... }  // Gets a specific post by slug
+  // Process markdown content through the unified pipeline
+  async function processMarkdown(content: string): Promise<string> { ... }
+
+  // Main functions for blog post handling (async)
+  export async function getAllPosts(): Promise<Post[]> { ... }  // Gets all blog posts sorted by date
+  export async function getPostBySlug(slug: string): Promise<Post> { ... }  // Gets a specific post by slug
   ```
 
-- **`src/app/posts/[slug]/page.tsx`**: Renders individual blog posts with:
+- **`src/app/posts/[slug]/page.tsx`**: Server component that renders individual blog posts with:
+  - Async data fetching using `getPostBySlug`
   - Dynamic routing based on post slug
-  - SEO metadata generation
+  - SEO metadata generation with Next.js Metadata API
   - Reading time calculation
   - Social sharing functionality
   - Responsive layout
 
+- **`src/components/blog/MarkdownContent.tsx`**: Client component that enhances rendered HTML:
+  - Uses React refs and useEffect to manipulate the DOM after rendering
+  - Adds copy buttons to code blocks with clipboard API integration
+  - Adds language indicators to code blocks
+  - Applies special styling to lists that follow headings
+
 #### Styling and Typography
 
-Blog posts are styled using Tailwind's Typography plugin, which provides beautiful typography defaults while maintaining consistency with the rest of the site. Custom styles are added for:
+Blog posts are styled using a combination of:
 
-- Code blocks with syntax highlighting
-- Responsive tables
-- Images with proper sizing
-- Blockquotes and lists
-- Headings with proper hierarchy
+1. **Tailwind's Typography Plugin**: Provides beautiful typography defaults for the main content
+2. **Custom CSS Files**:
+   - `highlight.css`: Custom styling for code blocks, bullet points, and feature lists
+   - `hljs.css`: Imports and extends highlight.js theme for syntax highlighting
+3. **Client-side DOM Manipulation**: The MarkdownContent component adds classes and attributes to enhance styling
+
+These approaches work together to create a cohesive styling system that includes:
+
+- **Enhanced Code Blocks**:
+  - Syntax highlighting with highlight.js through rehype-highlight
+  - Language indicator badges positioned at the top-left corner
+  - Copy-to-clipboard functionality with success feedback at the top-right corner
+  - Responsive design that adapts to all screen sizes
+  - GitHub-inspired dark theme for better readability
+
+- **Beautiful Bullet Points**:
+  - Custom arrow-style bullets with hover effects
+  - Special feature lists with checkmark bullets
+  - Task lists with custom checkbox styling
+
+- **Responsive Elements**:
+  - Tables that adapt to screen size
+  - Images with proper sizing and borders
+  - Blockquotes with distinctive styling
+  - Headings with proper hierarchy and spacing
 
 ### Contact Form with SendGrid
 
@@ -440,7 +478,13 @@ This project wouldn't be possible without these amazing open-source projects:
 - [SendGrid](https://sendgrid.com/) - Email delivery service
 - [ConvertKit](https://convertkit.com/) - Email marketing for creators
 - [gray-matter](https://github.com/jonschlinkert/gray-matter) - Front matter parser
-- [marked](https://marked.js.org/) - Markdown parser and compiler
+- [unified](https://unifiedjs.com/) - Interface for processing content with plugins
+- [remark](https://remark.js.org/) - Markdown processor powered by plugins
+- [remark-gfm](https://github.com/remarkjs/remark-gfm) - GitHub Flavored Markdown support
+- [remark-rehype](https://github.com/remarkjs/remark-rehype) - Transform markdown to HTML
+- [rehype-highlight](https://github.com/rehypejs/rehype-highlight) - Syntax highlighting with highlight.js
+- [rehype-stringify](https://github.com/rehypejs/rehype/tree/main/packages/rehype-stringify) - Serialize HTML
+- [highlight.js](https://highlightjs.org/) - Syntax highlighting for code blocks
 
 ---
 

@@ -1,0 +1,203 @@
+/* Import highlight.js theme */
+@import 'highlight.js/styles/github-dark.css';
+
+/* Custom code block styling */
+.prose pre {
+  position: relative;
+  background-color: #0d1117;
+  color: #e6edf3;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  margin: 1.5rem 0;
+  border: 1px solid rgba(56, 139, 253, 0.15);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Language badge */
+.prose pre::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #e6edf3;
+  background-color: rgba(56, 139, 253, 0.6);
+  border-bottom-right-radius: 0.25rem;
+  border-top-left-radius: 0.5rem;
+  text-transform: uppercase;
+}
+
+/* Copy button */
+.prose pre .copy-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: #e6edf3;
+  background-color: rgba(56, 139, 253, 0.4);
+  border: none;
+  border-bottom-left-radius: 0.25rem;
+  border-top-right-radius: 0.5rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.prose pre:hover .copy-button {
+  opacity: 1;
+}
+
+.prose pre .copy-button:hover {
+  background-color: rgba(56, 139, 253, 0.3);
+}
+
+.prose pre .copy-button:active {
+  background-color: rgba(56, 139, 253, 0.4);
+}
+
+/* Inline code styling */
+.prose code:not(pre code) {
+  background-color: rgba(175, 184, 193, 0.2);
+  color: #24292f;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  white-space: nowrap;
+}
+
+.dark .prose code:not(pre code) {
+  background-color: rgba(56, 139, 253, 0.15);
+  color: #e6edf3;
+}
+
+/* Custom bullet points */
+.prose ul:not(.contains-task-list) {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.prose ul:not(.contains-task-list) li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul:not(.contains-task-list) li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #2563eb; /* Blue-600 */
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.prose ul:not(.contains-task-list) li:hover::before {
+  transform: translateX(3px);
+  color: #1d4ed8; /* Blue-700 */
+}
+
+.dark .prose ul:not(.contains-task-list) li::before {
+  color: #38bdf8; /* Sky-400 */
+}
+
+.dark .prose ul:not(.contains-task-list) li:hover::before {
+  color: #0ea5e9; /* Sky-500 */
+}
+
+/* Feature list styling */
+.prose ul.feature-list {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.prose ul.feature-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose ul.feature-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981; /* Emerald-500 */
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
+}
+
+.prose ul.feature-list li:hover::before {
+  transform: scale(1.2);
+}
+
+.dark .prose ul.feature-list li::before {
+  color: #34d399; /* Emerald-400 */
+}
+
+/* Task list styling */
+.prose ul.contains-task-list {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.prose ul.contains-task-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul.contains-task-list input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid #d1d5db; /* Gray-300 */
+  border-radius: 0.25rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.prose ul.contains-task-list input[type="checkbox"]:checked {
+  background-color: #2563eb; /* Blue-600 */
+  border-color: #2563eb; /* Blue-600 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+  background-size: 0.75rem;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dark .prose ul.contains-task-list input[type="checkbox"] {
+  border-color: #4b5563; /* Gray-600 */
+  background-color: #1f2937; /* Gray-800 */
+}
+
+.dark .prose ul.contains-task-list input[type="checkbox"]:checked {
+  background-color: #38bdf8; /* Sky-400 */
+  border-color: #38bdf8; /* Sky-400 */
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .prose pre {
+    padding: 1rem;
+  }
+
+  .prose pre::before {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .prose ul:not(.contains-task-list) li,
+  .prose ul.feature-list li,
+  .prose ul.contains-task-list li {
+    padding-left: 1.25rem;
+  }
+}

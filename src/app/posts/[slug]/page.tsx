@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { notFound } from "next/navigation"
 import SocialShare from "@/components/blog/SocialShare"
 import { Toaster } from "sonner"
+import MarkdownContent from "@/components/blog/MarkdownContent"
 
 interface PostPageProps {
     params: Promise<{
@@ -18,7 +19,7 @@ interface PostPageProps {
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
     try {
         const { slug } = await params;
-        const post = getPostBySlug(slug)
+        const post = await getPostBySlug(slug)
 
         return {
             title: `${post.title} | Darshan's Blog`,
@@ -33,8 +34,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 }
 
 // Generate static paths
-export function generateStaticParams() {
-    const posts = getAllPosts()
+export async function generateStaticParams() {
+    const posts = await getAllPosts()
     return posts.map((post) => ({
         slug: post.slug,
     }))
@@ -55,7 +56,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
     try {
         const { slug } = await params;
-        post = getPostBySlug(slug)
+        post = await getPostBySlug(slug)
     } catch {
         notFound()
     }
@@ -118,10 +119,10 @@ export default async function PostPage({ params }: PostPageProps) {
             <div className="border-t mb-10" />
 
             {/* Post content */}
-            <div
-                className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl prose-a:text-primary/70 prose-pre:bg-muted prose-pre:text-textPrimary/70 prose-pre:border prose-img:rounded-lg prose-code:bg-muted prose-code:text-textPrimary/70 prose-code:border prose-code:rounded prose-table:overflow-x-auto sm:prose-table:overflow-visible prose-table:w-full prose-table:my-6 prose-table:border-collapse"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <div className="post-content">
+                {/* @ts-expect-error Server Component */}
+                <MarkdownContent content={post.content} />
+            </div>
 
             {/* Post footer */}
             <div className="border-t mt-12 sm:mt-16 pt-6 sm:pt-8">

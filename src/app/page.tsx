@@ -5,8 +5,8 @@ import TopCategories from "@/components/blog/TopCategories"
 import Newsletter from "@/components/blog/Newsletter"
 import Hero from "@/components/blog/Hero"
 
-export default function Home() {
-  const posts = getAllPosts()
+export default async function Home() {
+  const posts = await getAllPosts()
 
   // Get the latest 6 posts for the homepage
   const latestPosts = posts.slice(0, 6)
@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-16 pb-16 mb-8">
       {/* Hero Section with Stats */}
-      <Hero />
+      <Hero posts={posts} />
 
       {/* Featured Post */}
       <FeaturedPosts posts={featuredPost} title="Featured Posts" maxPosts={3} />

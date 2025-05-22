@@ -4,9 +4,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import CountUp from "@/components/blog/CountUp"
-import { getAllPosts } from "@/lib/post"
-const Hero = () => {
-    const posts = getAllPosts()
+import { Post } from "@/lib/post"
+
+interface HeroProps {
+    posts: Post[]
+}
+
+const Hero = ({ posts }: HeroProps) => {
     // Count posts by category
     const categoryCount = posts.reduce(
         (acc, post) => {
