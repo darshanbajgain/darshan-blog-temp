@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     description: "Browse all articles and tutorials on web development, JavaScript, React, and more",
 }
 
-export default function AllPostsPage() {
-    const posts = getAllPosts()
+export default async function AllPostsPage() {
+    const posts = await getAllPosts()
 
     return (
         <div className="container mx-auto  max-w-7xl  px-6 md:px-12 py-5 mb-16">

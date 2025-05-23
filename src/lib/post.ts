@@ -17,7 +17,7 @@ async function processMarkdown(content: string): Promise<string> {
         .use(remarkParse) // Parse markdown content
         .use(remarkGfm) // Support GFM (tables, autolinks, etc.)
         .use(remarkRehype, { allowDangerousHtml: true }) // Convert to HTML
-        .use(rehypeHighlight, { ignoreMissing: true }) // Add syntax highlighting
+        .use(rehypeHighlight) // Add syntax highlighting
         .use(rehypeStringify, { allowDangerousHtml: true }) // Stringify HTML
         .process(content)
 

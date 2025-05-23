@@ -11,7 +11,7 @@ interface CodeBlockProps {
 export default function CodeBlock({ language, code }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
   const codeRef = useRef<HTMLPreElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   // Clean up timeout on unmount
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function CodeBlock({ language, code }: CodeBlockProps) {
     try {
       await navigator.clipboard.writeText(code)
       setCopied(true)
-      
+
       // Reset copied state after 2 seconds
       timeoutRef.current = setTimeout(() => {
         setCopied(false)
@@ -47,6 +47,7 @@ export default function CodeBlock({ language, code }: CodeBlockProps) {
       >
         <code className={`language-${language}`} dangerouslySetInnerHTML={{ __html: code }} />
         <button
+          type="button"
           onClick={copyToClipboard}
           className="copy-button"
           aria-label="Copy code to clipboard"

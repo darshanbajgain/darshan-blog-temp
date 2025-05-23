@@ -120,7 +120,6 @@ export default async function PostPage({ params }: PostPageProps) {
 
             {/* Post content */}
             <div className="post-content">
-                {/* @ts-expect-error Server Component */}
                 <MarkdownContent content={post.content} />
             </div>
 

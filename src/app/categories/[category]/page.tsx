@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
 }
 
-export function generateStaticParams() {
-    const posts = getAllPosts();
+export async function generateStaticParams() {
+    const posts = await getAllPosts();
     const categories = new Set<string>();
     posts.forEach((post) => {
         if (post.categories) {
@@ -38,7 +38,7 @@ export function generateStaticParams() {
 export default async function CategoryPage({ params }: CategoryPageProps) {
     const { category } = await params;
     const decodedCategory = decodeURIComponent(category);
-    const allPosts = getAllPosts();
+    const allPosts = await getAllPosts();
     const categoryPosts = allPosts.filter(
         (post) => post.categories && post.categories.includes(decodedCategory)
     );
